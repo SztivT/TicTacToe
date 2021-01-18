@@ -1,0 +1,91 @@
+type: edu
+custom_name: Welcome to the battlefield!
+files:
+- name: src/tictactoe/Main.kt
+  visible: true
+  text: |-
+    package tictactoe
+
+    fun main() {
+        // write your code here
+    }
+  learner_created: false
+- name: test/TicTacToeTest.java
+  visible: false
+  text: |
+    import org.hyperskill.hstest.stage.StageTest;
+    import org.hyperskill.hstest.testcase.CheckResult;
+    import org.hyperskill.hstest.testcase.TestCase;
+    import tictactoe.MainKt;
+
+    import java.util.List;
+
+    public class TicTacToeTest extends StageTest<Object> {
+        public TicTacToeTest() {
+            super(MainKt.class);
+        }
+
+        @Override
+        public List<TestCase<Object>> generate() {
+            return List.of(
+                new TestCase<>()
+            );
+        }
+
+        @Override
+        public CheckResult check(String reply, Object clue) {
+
+            reply = reply.replaceAll("\\s+", "");
+
+            if (reply.length() > 9) {
+                return new CheckResult(false,
+                    "You need to output no more than 9 " +
+                        "symbols not counting spaces");
+            }
+
+            boolean haveX = false;
+            boolean haveO = false;
+
+            for (char c : reply.toCharArray()) {
+                if (c != 'X' && c != 'O') {
+                    return new CheckResult(false,
+                        "You need to output X and O " +
+                            "symbols only not counting spaces. " +
+                            "Found symbol: \'" + c + "\'");
+                }
+                if (c == 'X') {
+                    haveX = true;
+                }
+                if (c == 'O') {
+                    haveO = true;
+                }
+            }
+
+            if (!haveX) {
+                return CheckResult.wrong(
+                    "You need to output at least one X"
+                );
+            }
+
+            if (!haveO) {
+                return CheckResult.wrong(
+                    "You need to output at least one O"
+                );
+            }
+
+            return CheckResult.correct();
+        }
+    }
+  learner_created: false
+feedback_link: https://hyperskill.org/projects/123/stages/654/implement#comment
+status: Failed
+feedback:
+  message: "Exception in test #1\n\nProbably your program run out of input (Scanner\
+    \ tried to read more than expected).\n\njava.util.NoSuchElementException\r\n\t\
+    at java.base/java.util.Scanner.throwFor(Scanner.java:937)\r\n\tat java.base/java.util.Scanner.next(Scanner.java:1478)\r\
+    \n\tat tictactoe.MainKt.main(Main.kt:12)\r\n\tat tictactoe.MainKt.main(Main.kt)\n\
+    \nPlease find below the output of your program during this failed test.\nNote\
+    \ that the &#39;&gt;&#39; character indicates the beginning of the input line.\n\
+    \n---\n\n&gt;"
+  time: Sun, 17 Jan 2021 21:44:23 UTC
+record: 1
